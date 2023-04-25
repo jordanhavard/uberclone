@@ -45,15 +45,15 @@ const RideOptionsCard = () => {
       <View>
         <TouchableOpacity
           onPress={() => navigation.navigate("NavigateCard")}
-          style={tw`absolute top-3 left-3 p-3 rounded-full z-50`}
+          style={tw`absolute top-3 left-3 p-3 rounded-full z-50 shadow`}
         >
           <Icon name="chevron-left" type="font-awesome" size={12} />
         </TouchableOpacity>
         <Text style={tw`text-center pt-3 text-xl`}>Select a ride</Text>
         <Text style={tw`text-center pb-3 text-sm text-gray-500`}>
-          {travelTimeInformation?.distance.text}
+          {travelTimeInformation?.distance?.text}
           {" - "}
-          {travelTimeInformation?.duration.text}
+          {travelTimeInformation?.duration?.text}
         </Text>
 
         <FlatList
@@ -78,7 +78,7 @@ const RideOptionsCard = () => {
                   style: "currency",
                   currency: "AUD",
                 }).format(
-                  (travelTimeInformation?.duration.value *
+                  (travelTimeInformation?.duration?.value *
                     SURGE_CHARGE_RATE *
                     multiplier) /
                     100
