@@ -1,20 +1,35 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import tw from "twrnc";
 import Map from "../components/Map";
 import NavigateCard from "../components/NavigateCard";
 import RideOptionsCard from "../components/RideOptionsCard";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Icon } from "@rneui/base";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
 const MapScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={tw`bg-white h-full`}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("HomeScreen")}
+        style={tw`bg-gray-100 absolute z-50 top-16 left-8 p-3 rounded-full`}
+      >
+        <Icon name="menu" />
+      </TouchableOpacity>
       <View style={tw`h-1/2`}>
         <Map />
       </View>
-      <SafeAreaView style={tw`h-1/2`}>
+      <View style={tw`h-1/2`}>
         <Stack.Navigator>
           <Stack.Screen
             name="NavigateCard"
@@ -31,7 +46,7 @@ const MapScreen = () => {
             }}
           />
         </Stack.Navigator>
-      </SafeAreaView>
+      </View>
     </View>
   );
 };
