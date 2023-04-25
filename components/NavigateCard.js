@@ -6,6 +6,7 @@ import { GOOGLE_MAPS_APIKEY } from "@env";
 import { setDestination } from "../slices/navSlice";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import NavFavourites from "./NavFavourites";
 
 const NavigateCard = () => {
   const dispatch = useDispatch();
@@ -15,29 +16,32 @@ const NavigateCard = () => {
     <SafeAreaView style={tw`bg-white flex-1`}>
       <Text style={tw`text-center py-5 text-xl`}>Good Morning, Jordan</Text>
       <View style={tw`border-t border-gray-200 flex-shrink`}>
-        <GooglePlacesAutocomplete
-          placeholder="Where to?"
-          debounce={250}
-          styles={toInputBoxStyles}
-          nearbyPlacesAPI="GooglePlacesSearch"
-          query={{
-            key: GOOGLE_MAPS_APIKEY,
-            language: "en",
-          }}
-          enablePoweredByContainer={false}
-          minLength={2}
-          returnKeyType={"search"}
-          fetchDetails={true}
-          onPress={(data, details = null) => {
-            dispatch(
-              setDestination({
-                location: details.geometry.location,
-                description: data.description,
-              })
-            );
-            navigation.navigate("RideOptionsCard");
-          }}
-        />
+        <View>
+          <GooglePlacesAutocomplete
+            placeholder="Where to?"
+            debounce={250}
+            styles={toInputBoxStyles}
+            nearbyPlacesAPI="GooglePlacesSearch"
+            query={{
+              key: GOOGLE_MAPS_APIKEY,
+              language: "en",
+            }}
+            enablePoweredByContainer={false}
+            minLength={2}
+            returnKeyType={"search"}
+            fetchDetails={true}
+            onPress={(data, details = null) => {
+              dispatch(
+                setDestination({
+                  location: details.geometry.location,
+                  description: data.description,
+                })
+              );
+              navigation.navigate("RideOptionsCard");
+            }}
+          />
+        </View>
+        <NavFavourites />
       </View>
     </SafeAreaView>
   );
