@@ -3,9 +3,7 @@
 ## Documentation, Installation, and Usage Instructions
 
 ## What It Does
-This was created to get a feel for React native
-
-Once installed you can do stuff like this:
+This was created to get a feel for React native. It allows a user to select a pickup palce and destination and then using Google's APIs calculates the distance, price and directions for 3 different service levels
 
 ## Google maps API key
 You will need to get a google maps API key. Ensure to enable
