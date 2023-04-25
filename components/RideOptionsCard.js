@@ -10,6 +10,8 @@ import tw from "twrnc";
 import { Icon, Image } from "@rneui/base";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
+import { useSelector } from "react-redux";
+import { selectTravelTimeInformation } from "../slices/navSlice";
 
 const data = [
   {
@@ -32,9 +34,12 @@ const data = [
   },
 ];
 
+const SURGE_CHARGE_RATE = 1.5;
+
 const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
+  const travelTimeInformation = useSelector(selectTravelTimeInformation);
   return (
     <SafeAreaView style={tw`bg-white flex-grow`}>
       <View>
@@ -44,7 +49,12 @@ const RideOptionsCard = () => {
         >
           <Icon name="chevron-left" type="font-awesome" size={12} />
         </TouchableOpacity>
-        <Text style={tw`text-center py-3 text-xl`}>Select a ride</Text>
+        <Text style={tw`text-center pt-3 text-xl`}>Select a ride</Text>
+        <Text style={tw`text-center pb-3 text-sm text-gray-500`}>
+          {travelTimeInformation?.distance.text}
+          {" - "}
+          {travelTimeInformation?.duration.text}
+        </Text>
 
         <FlatList
           data={data}
@@ -62,9 +72,18 @@ const RideOptionsCard = () => {
               />
               <View style={tw`-ml-6`}>
                 <Text style={tw`text-xl font-semibold`}>{title}</Text>
-                <Text>Travel time...</Text>
               </View>
-              <Text style={tw`text-xl`}>$99</Text>
+              <Text style={tw`text-xl`}>
+                {new Intl.NumberFormat("en-AU", {
+                  style: "currency",
+                  currency: "AUD",
+                }).format(
+                  (travelTimeInformation?.duration.value *
+                    SURGE_CHARGE_RATE *
+                    multiplier) /
+                    100
+                )}
+              </Text>
             </TouchableOpacity>
           )}
         />
