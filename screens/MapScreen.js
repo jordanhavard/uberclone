@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import tw from "twrnc";
 import Map from "../components/Map";
@@ -14,7 +14,7 @@ const MapScreen = () => {
       <View style={tw`h-1/2`}>
         <Map />
       </View>
-      <View style={tw`h-1/2`}>
+      <SafeAreaView style={tw`h-1/2`}>
         <Stack.Navigator>
           <Stack.Screen
             name="NavigateCard"
@@ -31,7 +31,7 @@ const MapScreen = () => {
             }}
           />
         </Stack.Navigator>
-      </View>
+      </SafeAreaView>
     </View>
   );
 };
