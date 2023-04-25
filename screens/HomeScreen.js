@@ -31,7 +31,7 @@ const HomeScreen = () => {
               fontSize: 18,
             },
           }}
-          onPress={(data, details = null) => {
+          onPress={(data, details) => {
             dispatch(
               setOrigin({
                 location: details.geometry.location,
@@ -43,7 +43,7 @@ const HomeScreen = () => {
           returnKeyType={"search"}
           fetchDetails={true}
           nearbyPlacesAPI="GooglePlacesSearch"
-          debounce={400}
+          debounce={250}
           placeholder="Where shall we pick you up from?"
           query={{
             key: GOOGLE_MAPS_APIKEY,
