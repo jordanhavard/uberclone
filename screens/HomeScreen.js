@@ -2,8 +2,13 @@ import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import tw from "twrnc";
 import NavOptions from "../components/NavOptions";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GOOGLE_MAPS_APIKEY } from "@env";
+import { useDispatch } from "react-redux";
+import { setDestination, setOrigin } from "../slices/navSlice";
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
   return (
     <SafeAreaView style={tw`bg-white h-full`}>
       <View style={tw`p-5`}>
@@ -16,8 +21,38 @@ const HomeScreen = () => {
           source={{
             uri: "https://links.papareact.com/gzs",
           }}
-        ></Image>
-        <NavOptions></NavOptions>
+        />
+        <GooglePlacesAutocomplete
+          styles={{
+            container: {
+              flex: 0,
+            },
+            textInput: {
+              fontSize: 18,
+            },
+          }}
+          onPress={(data, details = null) => {
+            dispatch(
+              setOrigin({
+                location: details.geometry.location,
+                description: data.description,
+              })
+            );
+            dispatch(setDestination(null));
+          }}
+          returnKeyType={"search"}
+          fetchDetails={true}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          debounce={400}
+          placeholder="Where shall we pick you up from?"
+          query={{
+            key: GOOGLE_MAPS_APIKEY,
+            language: "en",
+          }}
+          enablePoweredByContainer={false}
+          minLength={2}
+        />
+        <NavOptions />
       </View>
     </SafeAreaView>
   );
